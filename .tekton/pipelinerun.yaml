@@ -14,7 +14,7 @@ metadata:
     # Fetch the git-clone task from hub, we are able to reference later on it
     # with taskRef and it will automatically be embedded into our pipeline.
     pipelinesascode.tekton.dev/task: "git-clone"
-    pipelinesascode.tekton.dev/task-1: "github-set-status"
+    pipelinesascode.tekton.dev/task-1: "github-add-comment"
 
     # Use maven task from hub
     #
@@ -43,25 +43,19 @@ spec:
       - name: source
       - name: basic-auth
     tasks:
-      # - name: github-set-status
-      #   taskRef:
-      #     name: github-set-status
-      #     kind: Task
-      #   params:
-      #   # - name: REQUEST_URL
-      #   #   value: $(params.repo_url)
-      #   - name: STATE
-      #     value: "pending"
-      #   - name: SHA
-      #     value: $(params.revision)
-      #   - name: DESCRIPTION
-      #     value: "CI tests are running"
-      #   - name: CONTEXT
-      #     value: "Tekton Pipeline"
-      #   - name: TARGET_URL
-      #     value: "http://localhost:9097/#/namespaces/ci/pipelineruns/$(context.pipelineRun.name)"
-      #   - name: REPO_FULL_NAME
-      #     value: jwitrick/ci-demo
+      - name: github-add-comment
+        taskRef:
+          name: github-add-comment
+          kind: Task
+        params:
+          - name: REQUEST_URL
+            value: "{{ repo_url }}/pull/{{ pull_request_number }}"
+          - name: COMMENT_OR_FILE
+            value: "Pipelines as Code IS GREAT!"
+          - name: GITHUB_TOKEN_SECRET_NAME
+            value: "{{ git_auth_secret }}"
+          - name: GITHUB_TOKEN_SECRET_KEY
+            value: "git-provider-token"
       - name: fetch-repository
         taskRef:
           name: git-clone
