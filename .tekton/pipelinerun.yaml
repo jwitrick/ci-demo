@@ -43,25 +43,25 @@ spec:
       - name: source
       - name: basic-auth
     tasks:
-      - name: github-set-status
-        taskRef:
-          name: github-set-status
-          kind: Task
-        params:
-        # - name: REQUEST_URL
-        #   value: $(params.repo_url)
-        - name: STATE
-          value: "pending"
-        - name: SHA
-          value: $(params.revision)
-        - name: DESCRIPTION
-          value: "CI tests are running"
-        - name: CONTEXT
-          value: "Tekton Pipeline"
-        - name: TARGET_URL
-          value: "http://localhost:9097/#/namespaces/ci/pipelineruns/$(context.pipelineRun.name)"
-        - name: REPO_FULL_NAME
-          value: jwitrick/ci-demo
+      # - name: github-set-status
+      #   taskRef:
+      #     name: github-set-status
+      #     kind: Task
+      #   params:
+      #   # - name: REQUEST_URL
+      #   #   value: $(params.repo_url)
+      #   - name: STATE
+      #     value: "pending"
+      #   - name: SHA
+      #     value: $(params.revision)
+      #   - name: DESCRIPTION
+      #     value: "CI tests are running"
+      #   - name: CONTEXT
+      #     value: "Tekton Pipeline"
+      #   - name: TARGET_URL
+      #     value: "http://localhost:9097/#/namespaces/ci/pipelineruns/$(context.pipelineRun.name)"
+      #   - name: REPO_FULL_NAME
+      #     value: jwitrick/ci-demo
       - name: fetch-repository
         taskRef:
           name: git-clone
