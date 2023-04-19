@@ -61,7 +61,7 @@ spec:
         - name: TARGET_URL
           value: "http://localhost:9097/#/namespaces/ci/pipelineruns/$(context.pipelineRun.name)"
         - name: REPO_FULL_NAME
-          value: $(params.repo_url)
+          value: jwitrick/ci-demo
       - name: fetch-repository
         taskRef:
           name: git-clone
